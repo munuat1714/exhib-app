@@ -73,13 +73,14 @@ function Home() {
           </div>
           <div className="exhibition-list">
             {filteredExhibitions.length > 0 ? (
-              filteredExhibitions.map((exhibition) => (
+              filteredExhibitions.map((exhibition, index) => (
                 <ExhibitionPreviewCard
                   key={exhibition.id}
                   exhibition={exhibition}
                   onSelect={() => navigate(`/exhibitions/${exhibition.id}`)}
                   isFavorite={isFavorite(exhibition.id)}
                   onToggleFavorite={toggleFavorite}
+                  animationIndex={index}
                 />
               ))
             ) : (

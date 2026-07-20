@@ -1,6 +1,12 @@
 import FavoriteButton from './FavoriteButton.jsx'
 
-function ExhibitionPreviewCard({ exhibition, onSelect, isFavorite, onToggleFavorite }) {
+function ExhibitionPreviewCard({
+  exhibition,
+  onSelect,
+  isFavorite,
+  onToggleFavorite,
+  animationIndex = 0,
+}) {
   const categoryTheme = {
     회화: 'violet',
     사진: 'indigo',
@@ -15,7 +21,10 @@ function ExhibitionPreviewCard({ exhibition, onSelect, isFavorite, onToggleFavor
   }
 
   return (
-    <article className="exhibition-card">
+    <article
+      className="exhibition-card"
+      style={{ '--card-index': Math.min(animationIndex, 8) }}
+    >
       <FavoriteButton
         exhibitionId={exhibition.id}
         exhibitionTitle={exhibition.title}

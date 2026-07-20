@@ -811,3 +811,229 @@ button:focus-visible {
     box-shadow: 0 0 36px rgba(31, 41, 55, 0.06);
   }
 }
+
+/* Cycle 9: motion and responsive refinement */
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes favorite-pop {
+  0% { transform: scale(0.82); }
+  55% { transform: scale(1.14); }
+  100% { transform: scale(1); }
+}
+
+.landing-page,
+.home-shell,
+.detail-shell {
+  animation: page-enter 360ms ease-out both;
+}
+
+.exhibition-card {
+  animation: card-enter 420ms ease-out both;
+  animation-delay: calc(var(--card-index, 0) * 45ms);
+  transition: border-color 220ms ease, box-shadow 220ms ease,
+    transform 220ms ease;
+}
+
+.exhibition-card__art::before,
+.exhibition-card__art::after {
+  transition: transform 320ms ease;
+}
+
+.favorite-button:active {
+  transform: scale(0.9);
+}
+
+.favorite-button.is-favorite span {
+  animation: favorite-pop 300ms ease-out;
+}
+
+.filter-chip,
+.segmented-control button,
+.bottom-navigation button,
+.icon-button {
+  transition: color 160ms ease, background-color 160ms ease,
+    border-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+}
+
+.filter-chip:active,
+.segmented-control button:active,
+.bottom-navigation button:active,
+.icon-button:active {
+  transform: scale(0.96);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .exhibition-card:hover {
+    border-color: rgba(79, 70, 229, 0.24);
+    box-shadow: 0 16px 42px rgba(31, 41, 55, 0.14);
+    transform: translateY(-5px);
+  }
+
+  .exhibition-card:hover .exhibition-card__art::before {
+    transform: rotate(22deg) scale(1.04);
+  }
+
+  .exhibition-card:hover .exhibition-card__art::after {
+    transform: translate(94px, 56px) rotate(-9deg) scale(1.05);
+  }
+
+  .filter-chip:hover:not(.is-active),
+  .segmented-control button:hover:not(.is-active) {
+    background: #f5f3ff;
+    color: var(--color-primary);
+  }
+}
+
+@media (max-width: 374px) {
+  .home-content {
+    padding-inline: 16px;
+  }
+
+  .app-header {
+    padding-inline: 16px;
+  }
+
+  .app-header__brand {
+    font-size: 14px;
+  }
+
+  .search-bar {
+    padding-inline: 12px;
+  }
+
+  .search-bar input {
+    font-size: 14px;
+  }
+
+  .filter-chip {
+    min-width: 58px;
+  }
+
+  .exhibition-card__art {
+    height: 174px;
+  }
+
+  .detail-art {
+    min-height: 270px;
+    padding: 34px;
+  }
+}
+
+@media (min-width: 768px) {
+  .home-shell {
+    width: min(calc(100% - 40px), 920px);
+    border-inline: 1px solid var(--color-border);
+    box-shadow: 0 0 44px rgba(31, 41, 55, 0.07);
+  }
+
+  .app-header,
+  .home-content {
+    padding-inline: 32px;
+  }
+
+  .home-content {
+    padding-top: 42px;
+  }
+
+  .welcome h1 {
+    font-size: 42px;
+  }
+
+  .search-section {
+    max-width: 620px;
+  }
+
+  .selector-scroll {
+    flex-wrap: wrap;
+    overflow: visible;
+  }
+
+  .segmented-control {
+    max-width: 440px;
+  }
+
+  .exhibition-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+  }
+
+  .empty-state {
+    grid-column: 1 / -1;
+  }
+
+  .bottom-navigation {
+    width: min(calc(100% - 40px), 920px);
+  }
+
+  .detail-shell {
+    width: min(calc(100% - 40px), 720px);
+  }
+
+  .detail-art {
+    min-height: 390px;
+  }
+
+  .detail-content {
+    padding: 34px 42px 64px;
+  }
+}
+
+@media (min-width: 1100px) {
+  .home-shell {
+    width: min(calc(100% - 64px), 1180px);
+  }
+
+  .app-header,
+  .home-content {
+    padding-inline: 44px;
+  }
+
+  .home-content {
+    padding-bottom: 124px;
+  }
+
+  .exhibition-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .exhibition-card__art {
+    height: 210px;
+  }
+
+  .bottom-navigation {
+    width: min(calc(100% - 64px), 1180px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

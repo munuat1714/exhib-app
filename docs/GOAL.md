@@ -3,23 +3,23 @@
 
 ## Current Cycle
 
-Cycle 8
+Cycle 9
 
 
 ---
 
-# Cycle 8
+# Cycle 9
 
 ## Goal
 
-즐겨찾기 기능 구현
+서비스 완성도를 위한 UI 개선
 
 ## Tasks
 
-* 즐겨찾기 버튼 추가
-* LocalStorage 저장
-* 즐겨찾기 목록 표시
-* 데이터 유지 확인
+* 애니메이션 적용
+* 반응형 UI 개선
+* 모바일 UX 개선
+* 디자인 통일
 
 ---
 
