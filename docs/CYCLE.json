@@ -1,5 +1,6 @@
 {
   "currentCycle": 5,
-  "status": "ready",
-  "nextCycle": 5
+  "status": "complete",
+  "startedAt": "2026-07-20",
+  "completedAt": "2026-07-20"
 }

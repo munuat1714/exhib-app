@@ -5,25 +5,26 @@ const roadmapPath = "./docs/ROADMAP.md";
 const goalPath = "./docs/GOAL.md";
 
 
-// 1. 현재 Cycle 읽기
-const cycleData = JSON.parse(
+// CYCLE.json 읽기
+const cycle = JSON.parse(
   fs.readFileSync(cyclePath, "utf-8")
 );
 
 
-const nextCycle = cycleData.currentCycle + 1;
+// 다음 Cycle 번호
+const nextCycle = cycle.currentCycle + 1;
 
 
-// 2. ROADMAP 읽기
+// ROADMAP 읽기
 const roadmap = fs.readFileSync(
   roadmapPath,
   "utf-8"
 );
 
 
-// 3. 다음 Cycle 영역 찾기
+// 다음 Cycle 찾기
 const cycleRegex = new RegExp(
-  `# Cycle ${nextCycle}([\\s\\S]*?)(?=# Cycle \\d+|$)`
+  `# Cycle ${nextCycle}[\\s\\S]*?(?=# Cycle \\d+|$)`
 );
 
 
@@ -31,17 +32,16 @@ const match = roadmap.match(cycleRegex);
 
 
 if (!match) {
-  console.error(
-    `Cycle ${nextCycle} 내용을 ROADMAP에서 찾을 수 없습니다.`
+  throw new Error(
+    `ROADMAP.md에서 Cycle ${nextCycle}을 찾을 수 없습니다.`
   );
-  process.exit(1);
 }
 
 
-const cycleContent = match[0];
+const cycleContent = match[0].trim();
 
 
-// 4. GOAL.md 생성
+// GOAL.md 생성
 const goalContent = `# GOAL.md
 
 
@@ -59,29 +59,53 @@ ${cycleContent}
 
 # Execution Rules
 
-- 기존 기능 유지
 - React + Vite 유지
+- JavaScript 사용
+- 서버 사용 금지
+- 기존 기능 삭제 금지
 - npm run dev 테스트
 - npm run build 테스트
-- Git Commit 진행
 
+
+---
+
+# Deliverables
+
+완료 후:
+
+1. 변경 파일 목록
+2. 구현 내용
+3. 테스트 결과
+4. 다음 Cycle 추천
 `;
 
 
+// GOAL 저장
 fs.writeFileSync(
   goalPath,
   goalContent
 );
 
 
-// 5. CYCLE 업데이트
-cycleData.currentCycle = nextCycle;
-cycleData.status = "ready";
+// CYCLE 업데이트
+cycle.currentCycle = nextCycle;
+cycle.status = "working";
+
+cycle.startedAt =
+  new Date()
+    .toISOString()
+    .split("T")[0];
+
+cycle.completedAt = null;
 
 
 fs.writeFileSync(
   cyclePath,
-  JSON.stringify(cycleData, null, 2)
+  JSON.stringify(
+    cycle,
+    null,
+    2
+  )
 );
 
 

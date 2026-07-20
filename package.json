@@ -8,7 +8,9 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "next-cycle": "node scripts/next-cycle.js"
+    "next-cycle": "node scripts/next-cycle.js",
+    "complete-cycle": "node scripts/complete-cycle.js",
+    "deploy-cycle": "node scripts/deploy-cycle.js"
   },
   "dependencies": {
     "react": "^19.2.7",
