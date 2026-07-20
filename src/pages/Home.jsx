@@ -9,8 +9,14 @@ function Home() {
   const [selectedLocation, setSelectedLocation] = useState('전체')
   const [selectedPrice, setSelectedPrice] = useState('전체')
   const filteredExhibitions = exhibitions.filter(
-    (exhibition) =>
-      selectedLocation === '전체' || exhibition.city === selectedLocation,
+    (exhibition) => {
+      const matchesLocation =
+        selectedLocation === '전체' || exhibition.city === selectedLocation
+      const matchesPrice =
+        selectedPrice === '전체' || exhibition.priceType === selectedPrice
+
+      return matchesLocation && matchesPrice
+    },
   )
 
   return (

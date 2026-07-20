@@ -1,77 +1,90 @@
 import fs from "fs";
 
 const cyclePath = "./docs/CYCLE.json";
+const roadmapPath = "./docs/ROADMAP.md";
 const goalPath = "./docs/GOAL.md";
 
-// CYCLE.json 읽기
-const cycle = JSON.parse(
+
+// 1. 현재 Cycle 읽기
+const cycleData = JSON.parse(
   fs.readFileSync(cyclePath, "utf-8")
 );
 
-// 다음 Cycle 증가
-cycle.currentCycle += 1;
-cycle.nextCycle = cycle.currentCycle + 1;
-cycle.status = "ready";
 
-// CYCLE 저장
-fs.writeFileSync(
-  cyclePath,
-  JSON.stringify(cycle, null, 2)
+const nextCycle = cycleData.currentCycle + 1;
+
+
+// 2. ROADMAP 읽기
+const roadmap = fs.readFileSync(
+  roadmapPath,
+  "utf-8"
 );
 
 
-// GOAL 생성
+// 3. 다음 Cycle 영역 찾기
+const cycleRegex = new RegExp(
+  `# Cycle ${nextCycle}([\\s\\S]*?)(?=# Cycle \\d+|$)`
+);
+
+
+const match = roadmap.match(cycleRegex);
+
+
+if (!match) {
+  console.error(
+    `Cycle ${nextCycle} 내용을 ROADMAP에서 찾을 수 없습니다.`
+  );
+  process.exit(1);
+}
+
+
+const cycleContent = match[0];
+
+
+// 4. GOAL.md 생성
 const goalContent = `# GOAL.md
+
 
 ## Current Cycle
 
-Cycle ${cycle.currentCycle}
+Cycle ${nextCycle}
 
 
 ---
 
-# Goal
-
-다음 Roadmap Cycle 기능 구현
+${cycleContent}
 
 
 ---
 
-# Success Criteria
+# Execution Rules
 
-- 기능 구현 완료
 - 기존 기능 유지
-- npm run build 성공
-- 콘솔 오류 없음
-
-
----
-
-# Constraints
-
 - React + Vite 유지
-- JavaScript 사용
-- 서버 사용 금지
-- 기존 기능 삭제 금지
+- npm run dev 테스트
+- npm run build 테스트
+- Git Commit 진행
 
-
----
-
-# Deliverables
-
-완료 후:
-
-1. 변경 파일 목록
-2. 구현 내용
-3. 테스트 결과
-4. 다음 Cycle 추천
 `;
+
 
 fs.writeFileSync(
   goalPath,
   goalContent
 );
 
+
+// 5. CYCLE 업데이트
+cycleData.currentCycle = nextCycle;
+cycleData.status = "ready";
+
+
+fs.writeFileSync(
+  cyclePath,
+  JSON.stringify(cycleData, null, 2)
+);
+
+
 console.log(
-  `Cycle ${cycle.currentCycle} GOAL 생성 완료`
+  `Cycle ${nextCycle} GOAL 생성 완료`
 );
