@@ -1,4 +1,4 @@
-function LandingPage() {
+function LandingPage({ onStart }) {
   return (
     <main className="landing-page">
       <section className="landing-card" aria-labelledby="landing-title">
@@ -17,7 +17,7 @@ function LandingPage() {
           </p>
         </div>
 
-        <button className="primary-button" type="button">
+        <button className="primary-button" type="button" onClick={onStart}>
           전시 둘러보기
           <span aria-hidden="true">→</span>
         </button>
