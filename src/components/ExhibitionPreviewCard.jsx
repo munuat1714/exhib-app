@@ -1,4 +1,4 @@
-function ExhibitionPreviewCard({ exhibition }) {
+function ExhibitionPreviewCard({ exhibition, onSelect }) {
   const categoryTheme = {
     회화: 'violet',
     사진: 'indigo',
@@ -14,6 +14,12 @@ function ExhibitionPreviewCard({ exhibition }) {
 
   return (
     <article className="exhibition-card">
+      <button
+        className="exhibition-card__link"
+        type="button"
+        onClick={onSelect}
+        aria-label={`${exhibition.title} 상세 보기`}
+      >
       <div
         className={`exhibition-card__art exhibition-card__art--${categoryTheme[exhibition.category]}`}
         role="img"
@@ -34,6 +40,7 @@ function ExhibitionPreviewCard({ exhibition }) {
           {formatDate(exhibition.startDate)} — {formatDate(exhibition.endDate)}
         </p>
       </div>
+      </button>
     </article>
   )
 }

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import ExhibitionPreviewCard from '../components/ExhibitionPreviewCard.jsx'
 import Header from '../components/Header.jsx'
 import LocationSelector from '../components/LocationSelector.jsx'
@@ -7,6 +8,7 @@ import SearchBar from '../components/SearchBar.jsx'
 import exhibitions from '../data/exhibitions.json'
 
 function Home() {
+  const navigate = useNavigate()
   const [selectedLocation, setSelectedLocation] = useState('전체')
   const [selectedPrice, setSelectedPrice] = useState('전체')
   const [searchQuery, setSearchQuery] = useState('')
@@ -66,7 +68,11 @@ function Home() {
           <div className="exhibition-list">
             {filteredExhibitions.length > 0 ? (
               filteredExhibitions.map((exhibition) => (
-                <ExhibitionPreviewCard key={exhibition.id} exhibition={exhibition} />
+                <ExhibitionPreviewCard
+                  key={exhibition.id}
+                  exhibition={exhibition}
+                  onSelect={() => navigate(`/exhibitions/${exhibition.id}`)}
+                />
               ))
             ) : (
               <div className="empty-state" role="status">
