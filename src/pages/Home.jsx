@@ -6,8 +6,12 @@ import PriceFilter from '../components/PriceFilter.jsx'
 import exhibitions from '../data/exhibitions.json'
 
 function Home() {
-  const [selectedLocation, setSelectedLocation] = useState('서울')
+  const [selectedLocation, setSelectedLocation] = useState('전체')
   const [selectedPrice, setSelectedPrice] = useState('전체')
+  const filteredExhibitions = exhibitions.filter(
+    (exhibition) =>
+      selectedLocation === '전체' || exhibition.city === selectedLocation,
+  )
 
   return (
     <div className="home-shell">
@@ -38,13 +42,13 @@ function Home() {
         <section className="home-section" aria-labelledby="popular-title">
           <div className="section-heading section-heading--row">
             <div>
-              <p>CURATED FOR YOU</p>
+              <p aria-live="polite">총 {filteredExhibitions.length}개의 전시</p>
               <h2 id="popular-title">지금 인기 있는 전시</h2>
             </div>
             <button type="button">전체보기</button>
           </div>
           <div className="exhibition-list">
-            {exhibitions.map((exhibition) => (
+            {filteredExhibitions.map((exhibition) => (
               <ExhibitionPreviewCard key={exhibition.id} exhibition={exhibition} />
             ))}
           </div>

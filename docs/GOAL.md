@@ -2,67 +2,39 @@
 
 ## Current Cycle
 
-Cycle 3
+Cycle 4
 
 
 ---
 
 # Goal
 
-전시 정보를 JSON 데이터 기반으로 관리하도록 구조를 변경한다.
+사용자가 원하는 지역의 전시만 확인할 수 있도록
+지역 필터 기능을 구현한다.
 
-현재 Home 화면의 임시 Mock 데이터를 제거하고,
-src/data/exhibitions.json 데이터를 React에서 불러와
-전시 카드를 동적으로 출력한다.
+현재 JSON 데이터의 city 값을 기반으로
+Home 화면의 전시 목록을 동적으로 필터링한다.
 
 
 ---
 
 # Success Criteria
 
-- exhibitions.json 생성
-- 최소 20개의 전시 Mock 데이터 생성
-- ExhibitionCard Component 데이터 연결
-- Home 화면에서 JSON 데이터 출력
-- 하드코딩된 전시 데이터 제거
-- 데이터 구조 문서화
+- 지역 선택 State 구현
+- LocationSelector Component 연결
+- 선택한 지역 데이터 필터링
+- 전체 지역 보기 기능 추가
+- 전시 카드 정상 출력
+- 기존 UI 유지
 
 
 ---
 
-# Data Location
+# Functional Requirements
 
-생성:
+지역 목록:
 
-src/data/exhibitions.json
-
-
-데이터 구조:
-
-{
-  id,
-  title,
-  city,
-  museum,
-  priceType,
-  price,
-  startDate,
-  endDate,
-  image,
-  description,
-  category
-}
-
-
----
-
-# Sample Data Requirements
-
-20개 이상의 데이터 생성
-
-
-지역:
-
+- 전체
 - 서울
 - 부산
 - 인천
@@ -70,52 +42,49 @@ src/data/exhibitions.json
 - 대전
 
 
-가격:
+동작:
 
-- 무료
-- 유료
+전체 선택
+→ 모든 전시 표시
 
 
-카테고리:
-
-- 회화
-- 사진
-- 조각
-- 미디어아트
-- 디자인
+서울 선택
+→ city가 서울인 전시만 표시
 
 
 ---
 
 # Component Requirements
 
-기존 Component 유지
-
 수정 가능:
 
-- ExhibitionPreviewCard.jsx
-- Home.jsx
+src/components/LocationSelector.jsx
+
+src/pages/Home.jsx
+
+src/components/ExhibitionPreviewCard.jsx
 
 
 필요하면 생성:
 
-- ExhibitionCard.jsx
+src/hooks/useExhibitions.js
 
 
 ---
 
-# UI Requirements
+# Technical Requirements
 
-현재 디자인 유지
+사용:
 
-조건:
+- React useState
+- Array.filter()
 
-- 기존 Card 스타일 유지
-- 이미지 영역 유지
-- 제목 표시
-- 장소 표시
-- 가격 표시
-- 날짜 표시
+
+예:
+
+exhibitions.filter(
+ item => item.city === selectedCity
+)
 
 
 ---
@@ -130,19 +99,19 @@ src/data/exhibitions.json
 - 서버 사용 금지
 - API 사용 금지
 - 기존 Cycle 기능 삭제 금지
-- 불필요한 라이브러리 추가 금지
+- JSON 데이터 구조 유지
 
 
 ---
 
 # Testing
 
-완료 후 확인:
+확인:
 
-1. npm run dev 실행
-2. Home 화면 표시
-3. 20개 전시 데이터 정상 출력
-4. 콘솔 오류 없음
+- 전체 선택 시 전체 출력
+- 서울 선택 시 서울만 출력
+- 부산 선택 시 부산만 출력
+- 콘솔 오류 없음
 
 
 ---
@@ -152,7 +121,7 @@ src/data/exhibitions.json
 완료 후 출력:
 
 1. 변경 파일 목록
-2. 데이터 구조 설명
-3. 구현 내용
-4. 테스트 결과
+2. 구현 기능 설명
+3. 테스트 결과
+4. 실행 방법
 5. 다음 Cycle 추천

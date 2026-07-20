@@ -1,4 +1,4 @@
-const locations = ['서울', '부산', '인천', '대구', '대전']
+const locations = ['전체', '서울', '부산', '인천', '대구', '대전']
 
 function LocationSelector({ selectedLocation, onSelect }) {
   return (
