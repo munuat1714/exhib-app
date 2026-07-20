@@ -443,11 +443,50 @@
 }
 
 .exhibition-card {
+  position: relative;
   overflow: hidden;
   border: 1px solid var(--color-border);
   border-radius: 16px;
   background: var(--color-card);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+.favorite-button {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border: 1px solid rgba(229, 231, 235, 0.9);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--color-subtext);
+  cursor: pointer;
+  font: inherit;
+  font-size: 22px;
+  transition: color 160ms ease, background-color 160ms ease,
+    transform 160ms ease;
+}
+
+.favorite-button:hover {
+  transform: scale(1.04);
+}
+
+.favorite-button.is-favorite {
+  border-color: #fecdd3;
+  background: #fff1f2;
+  color: #e11d48;
+}
+
+.favorite-button--card {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 3;
+  box-shadow: 0 6px 18px rgba(31, 41, 55, 0.14);
+}
+
+.favorite-button--detail {
+  justify-self: end;
 }
 
 .exhibition-card__link {

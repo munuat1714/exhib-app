@@ -3,23 +3,23 @@
 
 ## Current Cycle
 
-Cycle 7
+Cycle 8
 
 
 ---
 
-# Cycle 7
+# Cycle 8
 
 ## Goal
 
-전시 상세 페이지 구현
+즐겨찾기 기능 구현
 
 ## Tasks
 
-* 상세 페이지 Routing
-* 전시 상세 정보 표시
-* 이미지 영역 추가
-* 뒤로가기 기능 구현
+* 즐겨찾기 버튼 추가
+* LocalStorage 저장
+* 즐겨찾기 목록 표시
+* 데이터 유지 확인
 
 ---
 

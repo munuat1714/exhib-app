@@ -1,5 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom'
+import FavoriteButton from '../components/FavoriteButton.jsx'
 import exhibitions from '../data/exhibitions.json'
+import useFavorites from '../hooks/useFavorites.js'
 
 const categoryThemes = {
   회화: 'violet',
@@ -19,6 +21,7 @@ const formatDate = (date) =>
 function ExhibitionDetail() {
   const navigate = useNavigate()
   const { exhibitionId } = useParams()
+  const { isFavorite, toggleFavorite } = useFavorites()
   const exhibition = exhibitions.find((item) => item.id === Number(exhibitionId))
 
   if (!exhibition) {
@@ -43,7 +46,13 @@ function ExhibitionDetail() {
       <header className="detail-header">
         <button type="button" onClick={() => navigate(-1)} aria-label="뒤로 가기">←</button>
         <span>전시 상세</span>
-        <span aria-hidden="true" />
+        <FavoriteButton
+          exhibitionId={exhibition.id}
+          exhibitionTitle={exhibition.title}
+          isFavorite={isFavorite(exhibition.id)}
+          onToggle={toggleFavorite}
+          variant="detail"
+        />
       </header>
 
       <main>
