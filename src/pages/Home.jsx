@@ -3,29 +3,7 @@ import ExhibitionPreviewCard from '../components/ExhibitionPreviewCard.jsx'
 import Header from '../components/Header.jsx'
 import LocationSelector from '../components/LocationSelector.jsx'
 import PriceFilter from '../components/PriceFilter.jsx'
-
-const featuredExhibitions = [
-  {
-    id: 1,
-    title: '빛으로 그린 인상주의',
-    city: '서울',
-    museum: '서울시립미술관',
-    priceType: '무료',
-    date: '7. 18 — 9. 28',
-    category: 'PAINTING',
-    theme: 'violet',
-  },
-  {
-    id: 2,
-    title: '모던 아트 컬렉션',
-    city: '서울',
-    museum: '그라운드 갤러리',
-    priceType: '유료',
-    date: '7. 05 — 10. 12',
-    category: 'MODERN',
-    theme: 'indigo',
-  },
-]
+import exhibitions from '../data/exhibitions.json'
 
 function Home() {
   const [selectedLocation, setSelectedLocation] = useState('서울')
@@ -66,7 +44,7 @@ function Home() {
             <button type="button">전체보기</button>
           </div>
           <div className="exhibition-list">
-            {featuredExhibitions.map((exhibition) => (
+            {exhibitions.map((exhibition) => (
               <ExhibitionPreviewCard key={exhibition.id} exhibition={exhibition} />
             ))}
           </div>

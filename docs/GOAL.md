@@ -2,76 +2,120 @@
 
 ## Current Cycle
 
-Cycle 2
+Cycle 3
 
 
 ---
 
 # Goal
 
-Exhibition Finder의 Home 화면 UI를 구현한다.
+전시 정보를 JSON 데이터 기반으로 관리하도록 구조를 변경한다.
 
-Cycle 1에서 만든 Landing Page 구조를 유지하고,
-사용자가 실제 전시 앱처럼 느낄 수 있는 메인 화면을 제작한다.
+현재 Home 화면의 임시 Mock 데이터를 제거하고,
+src/data/exhibitions.json 데이터를 React에서 불러와
+전시 카드를 동적으로 출력한다.
 
 
 ---
 
 # Success Criteria
 
-- Home Page Component 생성
-- Header 영역 구현
-- 앱 이름 표시
-- 사용자 환영 문구 표시
-- 지역 선택 UI 구현
-- 무료 / 유료 선택 UI 구현
-- 인기 전시 카드 UI 구현
-- 모바일 화면 기준 레이아웃 적용
-- Component 단위로 분리
+- exhibitions.json 생성
+- 최소 20개의 전시 Mock 데이터 생성
+- ExhibitionCard Component 데이터 연결
+- Home 화면에서 JSON 데이터 출력
+- 하드코딩된 전시 데이터 제거
+- 데이터 구조 문서화
 
 
 ---
 
-# Components
+# Data Location
 
-생성할 Component:
+생성:
 
-src/components/
+src/data/exhibitions.json
 
-- Header.jsx
-- LocationSelector.jsx
-- PriceFilter.jsx
+
+데이터 구조:
+
+{
+  id,
+  title,
+  city,
+  museum,
+  priceType,
+  price,
+  startDate,
+  endDate,
+  image,
+  description,
+  category
+}
+
+
+---
+
+# Sample Data Requirements
+
+20개 이상의 데이터 생성
+
+
+지역:
+
+- 서울
+- 부산
+- 인천
+- 대구
+- 대전
+
+
+가격:
+
+- 무료
+- 유료
+
+
+카테고리:
+
+- 회화
+- 사진
+- 조각
+- 미디어아트
+- 디자인
+
+
+---
+
+# Component Requirements
+
+기존 Component 유지
+
+수정 가능:
+
 - ExhibitionPreviewCard.jsx
-
-
-src/pages/
-
 - Home.jsx
+
+
+필요하면 생성:
+
+- ExhibitionCard.jsx
 
 
 ---
 
 # UI Requirements
 
-디자인은 DESIGN.md 규칙을 따른다.
+현재 디자인 유지
 
 조건:
 
-- 모바일 우선
-- 카드 기반 UI
-- 둥근 모서리
-- 부드러운 그림자
-- 충분한 여백
-- 깔끔한 전시 앱 스타일
-
-
----
-
-# Data
-
-아직 실제 JSON 데이터는 사용하지 않는다.
-
-전시 카드는 Mock Data를 Component 내부 또는 별도 임시 데이터로 생성한다.
+- 기존 Card 스타일 유지
+- 이미지 영역 유지
+- 제목 표시
+- 장소 표시
+- 가격 표시
+- 날짜 표시
 
 
 ---
@@ -83,31 +127,32 @@ src/pages/
 - React + Vite 유지
 - JavaScript 사용
 - Tailwind CSS 사용
-- 기존 기능 삭제 금지
+- 서버 사용 금지
+- API 사용 금지
+- 기존 Cycle 기능 삭제 금지
 - 불필요한 라이브러리 추가 금지
-- 서버 코드 작성 금지
-- 기존 docs 문서 규칙 준수
 
 
 ---
 
 # Testing
 
-작업 완료 후:
+완료 후 확인:
 
-- npm run dev 실행 확인
-- 화면 오류 확인
-- 모바일 크기 확인
+1. npm run dev 실행
+2. Home 화면 표시
+3. 20개 전시 데이터 정상 출력
+4. 콘솔 오류 없음
 
 
 ---
 
 # Deliverables
 
-완료 후 아래 내용을 출력한다.
+완료 후 출력:
 
-1. 변경한 파일 목록
-2. 구현한 기능 설명
-3. 실행 방법
+1. 변경 파일 목록
+2. 데이터 구조 설명
+3. 구현 내용
 4. 테스트 결과
 5. 다음 Cycle 추천
