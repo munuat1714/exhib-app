@@ -3,19 +3,25 @@ import ExhibitionPreviewCard from '../components/ExhibitionPreviewCard.jsx'
 import Header from '../components/Header.jsx'
 import LocationSelector from '../components/LocationSelector.jsx'
 import PriceFilter from '../components/PriceFilter.jsx'
+import SearchBar from '../components/SearchBar.jsx'
 import exhibitions from '../data/exhibitions.json'
 
 function Home() {
   const [selectedLocation, setSelectedLocation] = useState('전체')
   const [selectedPrice, setSelectedPrice] = useState('전체')
+  const [searchQuery, setSearchQuery] = useState('')
+  const normalizedQuery = searchQuery.trim().toLocaleLowerCase()
   const filteredExhibitions = exhibitions.filter(
     (exhibition) => {
       const matchesLocation =
         selectedLocation === '전체' || exhibition.city === selectedLocation
       const matchesPrice =
         selectedPrice === '전체' || exhibition.priceType === selectedPrice
+      const matchesSearch = exhibition.title
+        .toLocaleLowerCase()
+        .includes(normalizedQuery)
 
-      return matchesLocation && matchesPrice
+      return matchesLocation && matchesPrice && matchesSearch
     },
   )
 
@@ -26,6 +32,10 @@ function Home() {
         <section className="welcome" aria-labelledby="welcome-title">
           <p>반가워요!</p>
           <h1 id="welcome-title">오늘은 어떤 전시를<br />만나볼까요?</h1>
+        </section>
+
+        <section className="search-section" aria-label="전시 검색">
+          <SearchBar value={searchQuery} onChange={setSearchQuery} />
         </section>
 
         <section className="home-section" aria-labelledby="location-title">
@@ -54,9 +64,17 @@ function Home() {
             <button type="button">전체보기</button>
           </div>
           <div className="exhibition-list">
-            {filteredExhibitions.map((exhibition) => (
-              <ExhibitionPreviewCard key={exhibition.id} exhibition={exhibition} />
-            ))}
+            {filteredExhibitions.length > 0 ? (
+              filteredExhibitions.map((exhibition) => (
+                <ExhibitionPreviewCard key={exhibition.id} exhibition={exhibition} />
+              ))
+            ) : (
+              <div className="empty-state" role="status">
+                <span aria-hidden="true">⌕</span>
+                <h3>일치하는 전시가 없어요</h3>
+                <p>검색어나 선택한 필터를 다시 확인해 주세요.</p>
+              </div>
+            )}
           </div>
         </section>
       </main>
